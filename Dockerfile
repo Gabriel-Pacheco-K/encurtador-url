@@ -13,4 +13,5 @@ RUN addgroup -S app && adduser -S app -G app
 COPY --from=build /app/target/encurtador-url-*.jar app.jar
 USER app
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Usa até 75% da memória do contêiner (o plano gratuito do Render tem 512 MB)
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-jar", "app.jar"]

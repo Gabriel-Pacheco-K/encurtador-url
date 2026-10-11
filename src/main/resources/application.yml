@@ -2,7 +2,8 @@ spring:
   application:
     name: encurtador-url
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/encurtador}
+    # DB_URL completo (Docker Compose) ou as partes separadas (Render)
+    url: ${DB_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:encurtador}}
     username: ${DB_USER:encurtador}
     password: ${DB_PASSWORD:encurtador}
   jpa:
@@ -18,7 +19,8 @@ spring:
 
 app:
   # Endereço público do encurtador, usado para montar os links curtos.
-  base-url: ${BASE_URL:http://localhost:8080}
+  # No Render, RENDER_EXTERNAL_URL já vem preenchida com o endereço público do serviço.
+  base-url: ${BASE_URL:${RENDER_EXTERNAL_URL:http://localhost:8080}}
   cache:
     ttl: 1h
   rate-limit:
@@ -26,6 +28,8 @@ app:
     window: ${RATE_LIMIT_WINDOW:1m}
 
 server:
+  # O Render define a porta pela variável PORT.
+  port: ${PORT:8080}
   # Atrás de um proxy reverso, usa o IP real do cliente (X-Forwarded-For) no rate limit.
   forward-headers-strategy: native
 

@@ -1,0 +1,51 @@
+# Blueprint do Render: cria a aplicação, o PostgreSQL e o Redis de uma vez.
+# No Render: New → Blueprint → selecione este repositório.
+services:
+  - type: web
+    name: encurtador-url
+    runtime: docker
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: encurtador-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: encurtador-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: encurtador-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: encurtador-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: encurtador-db
+          property: password
+      - key: REDIS_HOST
+        fromService:
+          type: keyvalue
+          name: encurtador-cache
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          type: keyvalue
+          name: encurtador-cache
+          property: port
+
+  - type: keyvalue
+    name: encurtador-cache
+    plan: free
+    maxmemoryPolicy: allkeys-lru
+    ipAllowList: []
+
+databases:
+  - name: encurtador-db
+    plan: free
+    databaseName: encurtador
+    user: encurtador
