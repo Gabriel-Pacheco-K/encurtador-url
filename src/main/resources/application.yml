@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: encurtador-url
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/encurtador}
+    username: ${DB_USER:encurtador}
+    password: ${DB_PASSWORD:encurtador}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  cache:
+    type: redis
+
+app:
+  # Endereço público do encurtador, usado para montar os links curtos.
+  base-url: ${BASE_URL:http://localhost:8080}
+  cache:
+    ttl: 1h
+  rate-limit:
+    max-requests: ${RATE_LIMIT_MAX:20}
+    window: ${RATE_LIMIT_WINDOW:1m}
+
+server:
+  # Atrás de um proxy reverso, usa o IP real do cliente (X-Forwarded-For) no rate limit.
+  forward-headers-strategy: native
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
