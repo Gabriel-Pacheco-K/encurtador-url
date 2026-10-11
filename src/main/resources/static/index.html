@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>encurta. — Encurtador de URL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <span class="logo">encurta<span class="dot">.</span></span>
+    <nav>
+      <a href="/swagger-ui.html" target="_blank">API</a>
+      <a href="https://github.com/Gabriel-Pacheco-K" target="_blank">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Links curtos · Estatísticas em tempo real</p>
+      <h1>Encurte um link e<br><span class="accent">veja quem clica.</span></h1>
+
+      <form id="shorten-form" class="shorten-form" novalidate>
+        <div class="field-main">
+          <input id="url" type="url" placeholder="Cole um link longo: https://..." required autocomplete="off">
+          <button type="submit" id="submit-btn">Encurtar</button>
+        </div>
+        <details class="advanced">
+          <summary>Opções avançadas</summary>
+          <div class="advanced-grid">
+            <label>Apelido personalizado
+              <input id="alias" type="text" placeholder="meu-link" maxlength="32">
+            </label>
+            <label>Expira em
+              <input id="expires" type="datetime-local">
+            </label>
+          </div>
+        </details>
+        <p id="form-error" class="error" role="alert" hidden></p>
+      </form>
+
+      <div id="result" class="result" hidden>
+        <div class="result-link">
+          <a id="result-url" href="#" target="_blank"></a>
+          <button id="copy-btn" class="btn-ghost" type="button">Copiar</button>
+        </div>
+        <p class="result-hint">Guarde o token para apagar o link depois: <code id="result-token"></code></p>
+      </div>
+    </section>
+
+    <section class="lookup">
+      <form id="stats-form" class="stats-form">
+        <label for="stats-code">Ver estatísticas de um link</label>
+        <div class="field-main small">
+          <input id="stats-code" type="text" placeholder="código, ex: aZ3kP9q" required autocomplete="off">
+          <button type="submit" class="btn-ghost">Buscar</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="stats" class="stats" hidden>
+      <header class="stats-header">
+        <div>
+          <p class="eyebrow" id="stats-code-label"></p>
+          <a id="stats-original" class="stats-original" target="_blank"></a>
+        </div>
+        <button id="refresh-btn" class="btn-ghost" type="button">Atualizar</button>
+      </header>
+
+      <ul class="kpis">
+        <li><span class="kpi-num" id="kpi-total">0</span><span class="kpi-label">cliques no total</span></li>
+        <li><span class="kpi-num" id="kpi-today">0</span><span class="kpi-label">cliques hoje</span></li>
+        <li><span class="kpi-num" id="kpi-top">—</span><span class="kpi-label">principal origem</span></li>
+        <li><span class="kpi-num" id="kpi-status">Ativo</span><span class="kpi-label" id="kpi-status-label">status</span></li>
+      </ul>
+
+      <div class="panel">
+        <h2>Cliques nos últimos 30 dias</h2>
+        <div class="chart-box tall"><canvas id="chart-days"></canvas></div>
+      </div>
+
+      <div class="panels-3">
+        <div class="panel">
+          <h2>Origens</h2>
+          <ul id="list-referrers" class="bars"></ul>
+        </div>
+        <div class="panel">
+          <h2>Navegadores</h2>
+          <ul id="list-browsers" class="bars"></ul>
+        </div>
+        <div class="panel">
+          <h2>Dispositivos</h2>
+          <ul id="list-devices" class="bars"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Feito por <a href="https://gabriel-pacheco-k.github.io" target="_blank">Gabriel Pacheco Kiesel</a> · Java · Spring Boot · PostgreSQL · Redis
+  </footer>
+
+  <script src="vendor/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
