@@ -9,6 +9,10 @@
 
 Encurtador de links no estilo do bit.ly, com um **painel de estatísticas**: cliques por dia, de onde vêm os acessos, navegadores e dispositivos. O back-end é em Java e Spring Boot, com **cache em Redis** no redirecionamento e **registro assíncrono** de cliques.
 
+### 🚀 [Ver demo ao vivo](https://encurtador-url-j4kj.onrender.com)
+
+> Hospedado no plano gratuito do Render: se o serviço estiver parado, o primeiro acesso leva até 1 minuto para acordar.
+
 ![Painel de estatísticas](docs/screenshot.png)
 
 > O print usa dados de exemplo.
