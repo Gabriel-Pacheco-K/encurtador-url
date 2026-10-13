@@ -13,9 +13,9 @@ Encurtador de links no estilo do bit.ly, com um **painel de estatísticas**: cli
 
 > Hospedado no plano gratuito do Render: se o serviço estiver parado, o primeiro acesso leva até 1 minuto para acordar.
 
-![Painel de estatísticas](docs/screenshot.png)
+![Demonstração: um link é encurtado, recebe 15 cliques de origens diferentes e o painel mostra as estatísticas](docs/demo.gif)
 
-> O print usa dados de exemplo.
+> Gravado com a aplicação, o PostgreSQL e o Redis rodando de verdade: os 15 cliques foram requisições reais ao link curto.
 
 ---
 
